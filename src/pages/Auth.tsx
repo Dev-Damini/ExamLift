@@ -34,26 +34,64 @@ export default function Auth() {
     try {
       const user = await authService.signUp(email, password, username);
       if (user) {
-        // Wait a bit to ensure the database trigger creates the profile
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        console.log('User signed up:', user.id);
         
-        // Fetch the created profile
-        const { data: profile } = await supabase
-          .from('user_profiles')
-          .select('is_admin, username')
-          .eq('id', user.id)
-          .single();
+        // Wait longer to ensure the database trigger creates the profile
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        // Verify session is established
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          throw new Error('Session not established. Please log in.');
+        }
+        
+        console.log('Session verified:', session.user.id);
+        
+        // Fetch the created profile with retry logic
+        let retries = 3;
+        let profile = null;
+        
+        while (retries > 0 && !profile) {
+          const { data, error } = await supabase
+            .from('user_profiles')
+            .select('is_admin, username')
+            .eq('id', user.id)
+            .single();
+          
+          if (data) {
+            profile = data;
+            break;
+          }
+          
+          if (error && error.code !== 'PGRST116') { // PGRST116 is "not found"
+            console.error('Profile fetch error:', error);
+          }
+          
+          retries--;
+          if (retries > 0) {
+            console.log('Profile not found, retrying...');
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          }
+        }
+        
+        if (!profile) {
+          throw new Error('Failed to create user profile. Please contact support.');
+        }
+        
+        console.log('Profile found:', profile);
         
         login({
           id: user.id,
           email: user.email!,
-          username: profile?.username || username,
-          isAdmin: profile?.is_admin || false,
+          username: profile.username || username,
+          isAdmin: profile.is_admin || false,
         });
+        
         toast.success('Account created successfully!');
         navigate('/track-selection');
       }
     } catch (error: any) {
+      console.error('Signup error:', error);
       toast.error(error.message || 'Failed to create account');
       setLoading(false);
     }
