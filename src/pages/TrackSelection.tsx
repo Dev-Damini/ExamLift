@@ -52,65 +52,20 @@ export default function TrackSelection() {
       return;
     }
 
-    if (!user) {
-      toast.error('Please log in to continue');
-      navigate('/auth');
-      return;
-    }
-
     setLoading(true);
     try {
-      console.log('Attempting to save track selection:', {
-        user_id: user.id,
+      const { error } = await supabase.from('user_track_selection').insert({
+        user_id: user!.id,
         track_id: selectedTrack,
         exam_type_id: selectedExam,
       });
 
-      // Verify user profile exists first
-      const { data: profile, error: profileError } = await supabase
-        .from('user_profiles')
-        .select('id')
-        .eq('id', user.id)
-        .single();
+      if (error) throw error;
 
-      if (profileError || !profile) {
-        console.error('User profile not found:', profileError);
-        toast.error('Account setup incomplete. Please try logging in again.');
-        navigate('/auth');
-        return;
-      }
-
-      // Verify auth session
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        toast.error('Session expired. Please log in again.');
-        navigate('/auth');
-        return;
-      }
-
-      console.log('Auth session verified, user_id:', session.user.id);
-
-      // Now insert the track selection
-      const { data, error } = await supabase
-        .from('user_track_selection')
-        .insert({
-          user_id: user.id,
-          track_id: selectedTrack,
-          exam_type_id: selectedExam,
-        })
-        .select();
-
-      if (error) {
-        console.error('Insert error:', error);
-        throw error;
-      }
-
-      console.log('Track selection saved successfully:', data);
       toast.success('Track selected successfully!');
       navigate('/dashboard');
     } catch (error: any) {
-      console.error('Error saving track selection:', error);
-      toast.error(error.message || 'Failed to save selection. Please try again.');
+      toast.error(error.message || 'Failed to save selection');
       setLoading(false);
     }
   };
