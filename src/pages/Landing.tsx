@@ -178,7 +178,7 @@ export default function Landing() {
       {/* Footer */}
       <footer className="border-t border-border/40 py-8">
         <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p>&copy; 2025 ExamLift. Empowering Nigerian students to achieve excellence.</p>
+          <p>Powered by damini codesphere 2026</p>
         </div>
       </footer>
     </div>
