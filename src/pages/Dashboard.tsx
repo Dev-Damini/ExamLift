@@ -19,6 +19,7 @@ import {
   BarChart3,
   Flame,
   Medal,
+  GraduationCap,
 } from 'lucide-react';
 import { Subject, Topic, UserTrackSelection, UserProgress, Track } from '../types';
 
@@ -289,6 +290,22 @@ export default function Dashboard() {
                   <h3 className="font-bold text-lg mb-2">Achievements</h3>
                   <p className="text-sm text-muted-foreground">
                     Unlock badges and track your learning milestones
+                  </p>
+                </div>
+              </div>
+            </Card>
+          </Link>
+
+          <Link to="/guides">
+            <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer h-full bg-gradient-to-br from-cyan-500/10 to-cyan-500/5 border-cyan-500/20">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <GraduationCap className="w-6 h-6 text-cyan-400" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">Study Guides</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Quick revision summaries, formulas &amp; key concepts
                   </p>
                 </div>
               </div>

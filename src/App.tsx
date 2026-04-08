@@ -15,6 +15,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminQuestions from './pages/admin/AdminQuestions';
 import AdminMockExams from './pages/admin/AdminMockExams';
 import MockExams from './pages/MockExams';
+import StudyGuides from './pages/StudyGuides';
 import { useEffect } from 'react';
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
           <Route path="/admin/questions" element={<AdminRoute><AdminQuestions /></AdminRoute>} />
           <Route path="/admin/mocks" element={<AdminRoute><AdminMockExams /></AdminRoute>} />
           <Route path="/mock-exams" element={<ProtectedRoute><MockExams /></ProtectedRoute>} />
+          <Route path="/guides" element={<ProtectedRoute><StudyGuides /></ProtectedRoute>} />
         </Routes>
       </Router>
       <Toaster position="top-right" />
