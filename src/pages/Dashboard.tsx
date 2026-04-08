@@ -263,19 +263,21 @@ export default function Dashboard() {
             </Card>
           </Link>
 
-          <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer h-full">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-science/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                <Clock className="w-6 h-6 text-science" />
+          <Link to="/mock-exams">
+            <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer h-full">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-science/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Clock className="w-6 h-6 text-science" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">Mock Exams</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Take full-length practice exams with real timer
+                  </p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-bold text-lg mb-2">Mock Exams</h3>
-                <p className="text-sm text-muted-foreground">
-                  Take full-length practice exams with real timer
-                </p>
-              </div>
-            </div>
-          </Card>
+            </Card>
+          </Link>
 
           <Link to="/achievements">
             <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer h-full">
@@ -311,19 +313,21 @@ export default function Dashboard() {
             </Card>
           </Link>
 
-          <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer h-full">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-art/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                <BarChart3 className="w-6 h-6 text-art" />
+          <Link to="/mock-exams">
+            <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer h-full">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-art/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <BarChart3 className="w-6 h-6 text-art" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">All Mock Exams</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Browse all available timed practice exams
+                  </p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-bold text-lg mb-2">Performance Analytics</h3>
-                <p className="text-sm text-muted-foreground">
-                  Track your progress and identify improvement areas
-                </p>
-              </div>
-            </div>
-          </Card>
+            </Card>
+          </Link>
         </div>
 
         {/* Subjects */}
